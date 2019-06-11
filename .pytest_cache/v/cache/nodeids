@@ -1,7 +1,3 @@
 [
-  "tests/test_comment_post.py::test_comment_post", 
-  "tests/test_create_post.py::test_create_post", 
-  "tests/test_delete_post.py::test_delete_post", 
-  "tests/test_like_post.py::test_like_post", 
-  "tests/test_update_post.py::test_update_post"
+  "tests/test_share_post.py::test_share_post"
 ]

@@ -1,43 +1,19 @@
 import facebook
 from settings import page_id, access_token
 
+# message variables
+post_msg = 'This is a new post!'
+updated_msg = 'This is an update to the post!'
+comment_msg = 'Nice post and cool test!'
 
-def main():
-
-    # API setup
-    config = {
+# API setup
+config = {
         "page_id": page_id,
         "access_token": access_token
-    }
-    api = get_api(config)
-
-    # Create a new post
-    post_msg = "This is a new post!"
-    create_post(api, post_msg)
-    assert get_latest_post_message(api) == post_msg, "post was not created"
-
-    # Update the last created post
-    updated_msg = "This is an update to the post!"
-    update_post(api, get_latest_post_id(api), updated_msg)
-    assert get_latest_post_message(api) == updated_msg, "post was not updated"
-
-    # Add comment to the post
-    comment_msg = 'Nice post and cool test!'
-    add_post_comment(api, get_latest_post_id(api), comment_msg)
-    print (get_post_comment(api, get_latest_post_id(api)))
-    assert (get_post_comment(api, get_latest_post_id(api))) == comment_msg, "Comment was not added"
-
-    # First, it makes sure the post has no likes and then, it adds a "like" to it
-    assert get_likes_count(api, get_latest_post_id(api)) == 0, "post already has a like"
-    like_post(api, get_latest_post_id(api))
-    assert get_likes_count(api, get_latest_post_id(api)) == 1, "like not added to the post"
-
-    # Delete the updated post
-    delete_post(api, get_latest_post_id(api))
-    assert api.request(page_id + '/posts?limit=1')['data'] == [], "post was not deleted"
+}
 
 
-def get_api(config):
+def get_api():
     graph = facebook.GraphAPI(config['access_token'])
     my_pages = graph.get_object('me/accounts')
     page_access_token = None
@@ -86,7 +62,3 @@ def add_post_comment(api, post_id, msg):
 def get_post_comment(api, post_id):
     comment = api.request(post_id + '?fields=comments')
     return comment['comments']['data'][0]['message']
-
-
-if __name__ == "__main__":
-    main()

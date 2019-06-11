@@ -1,5 +1,0 @@
-{
-  "tests/test_create_post.py::test_post": true, 
-  "tests/test_fb_post.py": true, 
-  "tests/test_share_post.py::test_share_post": true
-}
